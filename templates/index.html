@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crop Recommendation</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to right top, #a8e063, #56ab2f);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .header-text {
+      font-size: 48px;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+      border-bottom: 2px solid #ffffff88;
+      padding-bottom: 10px;
+      width: fit-content;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .main-layout {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .left-section,
+    .right-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      margin-top: 14px;
+      margin-bottom: 5px;
+      font-weight: 600;
+      font-size: 16px;
+      align-self: flex-start;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      margin-bottom: 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      width: 100%;
+    }
+
+    input[type="submit"] {
+      padding: 14px;
+      background: #ffffff;
+      color: #2f6627;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    input[type="submit"]:hover {
+      background: #e8ffe8;
+    }
+
+    .prediction {
+      margin-top: 22px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 18px;
+      border-left: 4px solid #fff;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 160px);
+      grid-template-rows: repeat(2, 160px);
+      gap: 5px;
+      justify-content: center;
+    }
+
+    .image-grid img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .main-layout {
+        flex-direction: column;
+      }
+
+      .image-grid {
+        grid-template-columns: repeat(2, 140px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-text"><h4>Crop Recommendation System🌿</h4></div>
+
+  <div class="main-layout">
+    <!-- Left Section (Form) -->
+    <div class="left-section">
+      <div class="form-container">
+        <form action="/predict" method="post">
+          <label for="Nitrogen">Nitrogen</label>
+          <input type="text" name="Nitrogen" id="Nitrogen" value="{{ Nitrogen or '' }}" required />
+
+          <label for="Phosphorus">Phosphorus</label>
+          <input type="text" name="Phosphorus" id="Phosphorus" value="{{ Phosphorus or '' }}" required />
+
+          <label for="Potassium">Potassium</label>
+          <input type="text" name="Potassium" id="Potassium" value="{{ Potassium or '' }}" required />
+
+          <label for="temperature">Temperature (°C)</label>
+          <input type="text" name="temperature" id="temperature" value="{{ temperature or '' }}" required />
+
+          <label for="humidity">Humidity (%)</label>
+          <input type="text" name="humidity" id="humidity" value="{{ humidity or '' }}" required />
+
+          <label for="ph">pH</label>
+          <input type="text" name="ph" id="ph" value="{{ ph or '' }}" required />
+
+          <label for="rainfall">Rainfall (mm)</label>
+          <input type="text" name="rainfall" id="rainfall" value="{{ rainfall or '' }}" required />
+
+          <input type="submit" value="Predict Crop" />
+        </form>
+
+        
+        <div class="prediction">
+          Recommended Crop🌱: <strong>{{ prediction }}</strong>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Right Section (Images) -->
+    <div class="right-section">
+      <div class="image-grid">
+        <img src="{{ url_for('static', filename='crop3.jpg') }}" alt="Image 1">
+        <img src="{{ url_for('static', filename='crop2.jpg') }}" alt="Image 2">
+        <img src="{{ url_for('static', filename='crop.jpg') }}" alt="Image 3">
+        <img src="{{ url_for('static', filename='crop5.jpg') }}" alt="Image 4">
+        <img src="{{ url_for('static', filename='crop1.jpg') }}" alt="Image 5">
+        <img src="{{ url_for('static', filename='crop4.jpg') }}" alt="Image 6">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
